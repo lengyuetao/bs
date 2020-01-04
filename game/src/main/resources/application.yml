@@ -1,0 +1,12 @@
+#server.port=80
+#server.servlet.context-path=/
+server:
+  port: 8081
+  servlet:
+    context-path: /
+spring:
+  redis:
+    host: 192.168.0.100
+    port: 6379
+    password:
+    timeout: 10000
