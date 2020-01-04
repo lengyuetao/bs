@@ -132,4 +132,13 @@ public class RedisUtils {
             return null;
         }
     }
+
+    /**
+     * 消息订阅
+     * @param channel
+     * @param msg
+     */
+    public void sendMsg(String channel,String msg){
+        redisTemplate.convertAndSend(channel, msg);
+    }
 }

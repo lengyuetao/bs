@@ -1,8 +1,13 @@
 package com.example.game.redis;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.data.redis.connection.RedisConnectionFactory;
 import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.data.redis.listener.PatternTopic;
+import org.springframework.data.redis.listener.RedisMessageListenerContainer;
+import org.springframework.data.redis.listener.adapter.MessageListenerAdapter;
 import org.springframework.data.redis.serializer.RedisSerializer;
 import org.springframework.data.redis.serializer.StringRedisSerializer;
 
@@ -30,5 +35,17 @@ public class RedisConfig {
         redisTemplate.setEnableTransactionSupport(true);
         return redisTemplate;
     }
+
+    @Bean
+    public RedisMessageListenerContainer container(RedisConnectionFactory connectionFactory,
+                                                   MessageListenerAdapter messageListenerAdapter) {
+        RedisMessageListenerContainer container = new RedisMessageListenerContainer();
+        container.setConnectionFactory(connectionFactory);
+        container.addMessageListener(messageListenerAdapter, new PatternTopic("test"));
+        //配置要订阅的订阅项
+        container.addMessageListener(messageListenerAdapter, new PatternTopic("chat"));
+        return container;
+    }
+
 }
 
