@@ -6,7 +6,7 @@ server:
     context-path: /
 spring:
   redis:
-    host: 192.168.0.100
+    host: 139.155.118.239
     port: 6379
     password:
     timeout: 10000
